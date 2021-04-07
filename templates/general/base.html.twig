@@ -15,33 +15,12 @@
             {#{{ encore_entry_script_tags('app') }}#}
         {% endblock %}
     </head>
-    <body style="width:100%">
+    <body>
         <header style="background-image: url('https://www.auvergnerhonealpes-ee.fr/fileadmin/_processed_/7/8/csm_bandeau_CDR_Mediatheque_b6b4370967.png'); background-repeat: no-repeat; background-size: cover">
-            <nav class="navbar navbar-expand-lg">
-                <a class="navbar-brand text-white" href="/default">Mediatheque</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
-                    <li class="nav-item active">
-                        <a class="nav-link text-white" href="/default">Acceuil <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="/catalogue">Catalogue</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="/presentation">Présentation</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="/document">Documents</a>
-                    </li>
-                    </ul>
-                </div>
-            </nav>
+            {% include 'general/navbar.html.twig' %}
         </header>
 
-        <main class="container row" style="margin: auto">
+        <main class="container row m-auto">
             <div class="col-9">
                 {% block body %}
                     
@@ -59,17 +38,52 @@
                     <li>Samedi: 9h30-12h / 14h-16h</li>
                     <li>Dimanche: 9h30-12h</li>
                 </ul>
+
+                <form action="#" method="POST" style=>
+                    <div class="input-group">
+                        <div class="form-flaoting">
+                            <input type="search" placeholder="Rechercher" id="form1" class="form-control" />
+                        </div>
+                        <button type="button" class="btn btn-primary">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </form>
             </div>
         </main>
- 
-        
-        {% block footer %}{% endblock %}
-        <footer>
-            
+
+        <footer class="bg-dark d-flex align-items-center justify-content-center flex-column">
+            {% include 'general/navbar.html.twig' %}
+            <div>
+                <p class="text-white m-0">&copy; 2021 Mediatheque.com</p>
+                <p class="text-white m-0 ml-4">{{ "now"|date("d/m/Y H:i:s", "Europe/Paris") }}</p>
+                <p class="text-white m-0 ml-4"><strong>Contact:</strong><address><a href="mailto:jim@rock.com">jim@rock.com</a><br>
+</address></p>
+            </div>
         </footer>
+ 
+       
+        
         {% block js %}
            <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+           <script>
+                function adapt_main_size() {
+                    let height = $(window).height() - ($('header').height() + $('footer').height());
+
+                    $('main').css({
+                        'min-height': height,
+                    });
+                }
+
+                $(document).ready( () => {
+                    adapt_main_size();
+                });
+
+                $(window).resize( () => {
+                    adapt_main_size();
+                });
+            </script>
         {% endblock %}
     </body>
 </html>
